@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruta Andina — Plataforma Binacional de Movilidad | COIL 2026</title>
+  
+  <!-- Tipografía Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Iconos Lucide CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Hoja de Estilos de Lujo Awwwards -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- NAVEGACIÓN SUPERIOR ESTRUCTURADA -->
+  <header class="site-header">
+    <div class="app-container">
+      
+      <!-- FILA SUPERIOR: MARCA Y CONTROLES GLOBALES -->
+      <div class="header-top-row">
+        
+        <!-- LOGO CON MÁXIMO CONTRASTE Y LEGIBILIDAD (100% BLANCO PURO) -->
+        <div class="brand-anchor" id="brandHomeBtn">
+          <div class="brand-emblem">
+            <i data-lucide="compass"></i>
+          </div>
+          <div class="brand-typography">
+            <span class="brand-name">RUTA ANDINA</span>
+            <span class="brand-subtext">Mobility Operating System</span>
+          </div>
+        </div>
+
+        <!-- SELECTOR BINACIONAL: LIMA / MEDELLÍN (CENTRADO) -->
+        <div class="currency-segmented" id="countryToggle">
+          <button class="currency-seg-btn active" data-country="PE" data-currency="PEN" data-city="Lima">
+            <span>🇵🇪</span> Lima <small style="color:var(--gold-300);">(PEN)</small>
+          </button>
+          <button class="currency-seg-btn" data-country="CO" data-currency="COP" data-city="Medellín">
+            <span>🇨🇴</span> Medellín <small style="color:var(--emerald-300);">(COP)</small>
+          </button>
+        </div>
+
+        <!-- CONTROLES DERECHA -->
+        <div class="header-controls">
+          <!-- BOTÓN DEMO -->
+          <button class="btn-demo-trigger" id="openDemoModalBtn">
+            <i data-lucide="zap" style="width:14px; height:14px;"></i> Demo
+          </button>
+        </div>
+      </div>
+
+      <!-- FILA INFERIOR: NAVEGACIÓN SEGMENTADA CENTRAL (SPA TABS) -->
+      <nav class="nav-segmented-bar">
+        <div class="nav-pills-cluster">
+          <button class="nav-pill-btn active" data-tab="passenger">
+            <i data-lucide="user"></i> Pasajero
+          </button>
+          <button class="nav-pill-btn" data-tab="driver">
+            <i data-lucide="car"></i> Conductor
+          </button>
+          <button class="nav-pill-btn" data-tab="corporate">
+            <i data-lucide="building-2"></i> Empresa
+          </button>
+          <button class="nav-pill-btn bi-pill" data-tab="analytics">
+            <i data-lucide="terminal"></i> Business Intelligence
+          </button>
+        </div>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="app-container">
+
+    <!-- HERO EDITORIAL LUXURY -->
+    <section class="hero-editorial">
+      <div class="hero-luxury-frame">
+        <div class="hero-text-block">
+          <div class="hero-tag">
+            <i data-lucide="sparkles" style="width:13px; height:13px;"></i> Red de Movilidad Ejecutiva & Urbana
+          </div>
+          <h2 class="hero-main-title">
+            Servicio de Alta Gama en <span class="accent-gold" id="heroCityName">Lima & Medellín</span>
+          </h2>
+          <p class="hero-description">
+            Arquitectura relacional 3FN sobre Supabase PostgreSQL, control continuo de licencias y pólizas en tiempo real y facturación corporativa B2B.
+          </p>
+        </div>
+        <div class="hero-kpis-strip">
+          <div class="kpi-mini-card">
+            <div class="kpi-mini-val gold" id="metricGmv">S/ 48.5K</div>
+            <div class="kpi-mini-label">GMV Operado</div>
+          </div>
+          <div class="kpi-mini-card">
+            <div class="kpi-mini-val emerald">100%</div>
+            <div class="kpi-mini-label">3FN Auditado</div>
+          </div>
+          <div class="kpi-mini-card">
+            <div class="kpi-mini-val">15%</div>
+            <div class="kpi-mini-label">Comisión Ruta</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         VISTA 1: PASAJERO (BOOKING, ESTIMADOR, VIAJES EN VIVO, CALIFICACIÓN)
+         ====================================================================== -->
+    <section class="view-panel active" id="view-passenger">
+      <div class="passenger-grid">
+        
+        <!-- COLUMNA IZQUIERDA: COTIZADOR & SOLICITUD -->
+        <div class="luxury-card booking-card">
+          <div class="card-title-row">
+            <div class="card-title-block">
+              <div class="card-icon-badge">
+                <i data-lucide="map-pin"></i>
+              </div>
+              <div>
+                <h3>Solicitar Traslado</h3>
+                <div class="card-subtext">Cotizador automático con tarifa dinámica</div>
+              </div>
+            </div>
+            <span class="badge-state badge-aceptado" id="passengerActiveBadge">🇵🇪 Lima</span>
+          </div>
+
+          <form class="booking-stack" id="bookingForm" onsubmit="return false;">
+            
+            <!-- Origen -->
+            <div class="field-group">
+              <label class="field-label">Punto de Recogida (Origen)</label>
+              <div class="field-input-box">
+                <i data-lucide="circle-dot"></i>
+                <input type="text" class="text-input" id="tripOrigin" value="Av. Malecón de la Reserva 729, Miraflores" placeholder="¿Dónde te recogemos?">
+              </div>
+              <div class="chips-scroll" id="originQuickChips">
+                <!-- Direcciones rápidas -->
+              </div>
+            </div>
+
+            <!-- Destino -->
+            <div class="field-group">
+              <label class="field-label">Punto de Destino</label>
+              <div class="field-input-box">
+                <i data-lucide="navigation"></i>
+                <input type="text" class="text-input" id="tripDestination" value="Av. Canaval y Moreyra 480, San Isidro" placeholder="¿A dónde vas?">
+              </div>
+              <div class="chips-scroll" id="destQuickChips">
+                <!-- Direcciones rápidas -->
+              </div>
+            </div>
+
+            <!-- Catálogo de Servicios -->
+            <div class="field-group">
+              <label class="field-label">Categoría de Vehículo</label>
+              <div class="service-options-stack" id="servicesCatalogContainer">
+                <!-- Inyectado dinámicamente -->
+              </div>
+            </div>
+
+            <!-- Método de Pago / Cargo Corporativo -->
+            <div class="field-group">
+              <label class="field-label">
+                <span>Medio de Pago</span>
+                <label style="cursor:pointer; display:inline-flex; align-items:center; gap:5px; font-weight:700; color:var(--gold-300);">
+                  <input type="checkbox" id="chkCorporateTrip" style="accent-color:var(--gold-primary);"> Facturar a Empresa
+                </label>
+              </label>
+              <select class="text-input" id="paymentMethodSelect" style="padding-left:12px;">
+                <option value="1">💳 Visa Corporativa (**** 4912)</option>
+                <option value="2">🏢 BCP Cuenta Corporativa (Directorio)</option>
+                <option value="3">📱 Yape / Plin / Nequi Móvil</option>
+                <option value="4">💵 Efectivo en Destino</option>
+              </select>
+            </div>
+
+            <!-- Desglose de Cotización -->
+            <div class="fare-breakdown-box" id="quoteBreakdownBox">
+              <div class="fare-row">
+                <span>Distancia estimada:</span>
+                <strong id="quoteDistance" style="color:var(--text-white); font-family:var(--font-mono);">8.5 km</strong>
+              </div>
+              <div class="fare-row">
+                <span>Tiempo de arribo estimado:</span>
+                <strong id="quoteEta" style="color:var(--emerald-300); font-family:var(--font-mono);">27 mins</strong>
+              </div>
+              <div class="fare-row">
+                <span>Tarifa Base + Recorrido:</span>
+                <span id="quoteSubtotal" style="font-family:var(--font-mono);">S/ 25.40</span>
+              </div>
+              <div class="fare-row">
+                <span>Comisión Plataforma (15% incluida):</span>
+                <span id="quoteCommission" style="font-family:var(--font-mono);">S/ 4.50</span>
+              </div>
+              <div class="fare-row total-row">
+                <span>Total Estimado:</span>
+                <span class="total-amount" id="quoteTotal">S/ 29.90</span>
+              </div>
+            </div>
+
+            <!-- Botón Solicitar -->
+            <button type="button" class="btn-gold-action" id="btnRequestRide">
+              <i data-lucide="zap" style="width:16px; height:16px;"></i> Solicitar Traslado
+            </button>
+
+          </form>
+        </div>
+
+        <!-- COLUMNA DERECHA: SEGUIMIENTO EN VIVO & HISTORIAL DE VIAJES -->
+        <div class="passenger-content-col">
+          
+          <!-- VIAJE ACTIVO EN SEGUIMIENTO -->
+          <div class="luxury-card live-tracker-panel" id="activeRideTracker">
+            <div class="tracker-top">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="live-dot"></span>
+                <h4 style="font-size:0.9rem; font-weight:800; color:var(--text-white);">Estado del Traslado en Vivo</h4>
+              </div>
+              <span class="badge-state badge-encurso" id="activeRideStateBadge">En Curso</span>
+            </div>
+            
+            <div class="tracker-stats-grid">
+              <div class="tracker-stat-item">
+                <div class="tracker-sublabel">Conductor Asignado</div>
+                <div class="tracker-val" id="activeRideDriver">Carlos Mendoza</div>
+                <small style="color:var(--gold-300); font-size:0.7rem;">⭐ 4.9 (120 viajes)</small>
+              </div>
+              <div class="tracker-stat-item">
+                <div class="tracker-sublabel">Vehículo & Placa</div>
+                <div class="tracker-val" id="activeRideVehicle">Toyota Corolla Hybrid</div>
+                <small style="color:var(--emerald-300); font-size:0.7rem; font-family:var(--font-mono);" id="activeRidePlate">Placa: BAP-842</small>
+              </div>
+              <div class="tracker-stat-item">
+                <div class="tracker-sublabel">Tarifa Total</div>
+                <div class="tracker-val" style="color:var(--gold-300); font-family:var(--font-mono); font-size:1.05rem;" id="activeRideFare">S/ 29.90</div>
+                <small style="color:var(--text-tertiary); font-size:0.7rem;" id="activeRidePayment">Visa **** 4912</small>
+              </div>
+            </div>
+
+            <div class="tracker-bottom-bar">
+              <div>
+                <span style="color:var(--text-tertiary);">Ruta: </span>
+                <strong style="color:var(--text-white);" id="activeRideRoute">Miraflores ➔ San Isidro</strong>
+              </div>
+              <button class="btn-status-action start" id="btnSimulatePassengerRideProgress">
+                Avanzar Estado ⏩
+              </button>
+            </div>
+          </div>
+
+          <!-- HISTORIAL DE VIAJES (CONSUMIENDO vw_resumen_viaje_pasajero) -->
+          <div class="luxury-card">
+            <div class="card-title-row">
+              <div class="card-title-block">
+                <div class="card-icon-badge">
+                  <i data-lucide="history"></i>
+                </div>
+                <div>
+                  <h3>Historial de Traslados</h3>
+                  <div class="card-subtext">Alimentado por la vista <code style="color:var(--emerald-300); font-family:var(--font-mono);">vw_resumen_viaje_pasajero</code></div>
+                </div>
+              </div>
+              <button class="chip-btn" id="btnRefreshPassengerHistory">
+                <i data-lucide="refresh-cw" style="width:11px; height:11px; display:inline; vertical-align:middle;"></i> Refrescar
+              </button>
+            </div>
+
+            <div class="table-scroll-container">
+              <table class="luxury-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Ruta</th>
+                    <th>Servicio</th>
+                    <th>Conductor / Vehículo</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                    <th>Calificación</th>
+                  </tr>
+                </thead>
+                <tbody id="passengerHistoryTbody">
+                  <!-- Llenado dinámico -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         VISTA 2: CONDUCTOR (DOCUMENT HEALTH GUARD & RADAR)
+         ====================================================================== -->
+    <section class="view-panel" id="view-driver">
+      <div class="driver-grid">
+        
+        <!-- COLUMNA IZQUIERDA: PERFIL Y ESTADO DE DOCUMENTOS -->
+        <div class="luxury-card">
+          <div class="driver-hero-profile">
+            <div class="driver-badge-avatar" id="driverAvatarInitial">CM</div>
+            <div>
+              <h3 style="font-size:0.95rem; font-weight:700; color:var(--text-white);" id="driverProfileName">Carlos Mendoza Paredes</h3>
+              <p style="font-size:0.74rem; color:var(--text-tertiary);" id="driverCategoryInfo">Categoría A-IIb • Flota Andina Express Lima</p>
+              <div style="margin-top:4px;">
+                <span class="badge-state badge-encurso" id="driverAvailabilityBadge">Disponible</span>
+              </div>
+            </div>
+          </div>
+
+          <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--gold-300); margin-bottom:10px;">
+            <i data-lucide="shield-check" style="width:14px; height:14px; display:inline; vertical-align:middle;"></i> Document Health Guard
+          </h4>
+
+          <!-- Licencia -->
+          <div class="document-health-item" id="driverLicenseCard">
+            <div>
+              <div style="font-size:0.82rem; font-weight:700; color:var(--text-white);">Licencia de Conducir</div>
+              <div style="font-size:0.7rem; color:var(--text-tertiary);" id="driverLicenseDetails">N° Q-10293847-A2B • Vence: 2028-05-15</div>
+            </div>
+            <span class="badge-state badge-encurso" id="driverLicenseBadge">Vigente</span>
+          </div>
+
+          <!-- Seguro SOAT -->
+          <div class="document-health-item warning" id="driverInsuranceCard">
+            <div>
+              <div style="font-size:0.82rem; font-weight:700; color:var(--text-white);">Seguro Vehicular (SOAT)</div>
+              <div style="font-size:0.7rem; color:var(--text-tertiary);" id="driverInsuranceDetails">Pacífico Seguros • Vence: 2026-12-08</div>
+            </div>
+            <span class="badge-state badge-aceptado" id="driverInsuranceBadge">Vence en 18d</span>
+          </div>
+
+          <!-- Resumen de Ganancias -->
+          <div style="background:var(--bg-canvas); border-radius:12px; padding:14px; margin-top:16px; border:1px solid var(--border-hairline);">
+            <div style="font-size:0.68rem; color:var(--text-tertiary); text-transform:uppercase; font-weight:700;">Ganancias del Día (85% neto)</div>
+            <div style="font-family:var(--font-mono); font-size:1.4rem; font-weight:800; color:var(--gold-300); margin:2px 0;" id="driverTodayEarnings">S/ 245.80</div>
+            <div style="font-size:0.7rem; color:var(--emerald-300);">6 servicios completados</div>
+          </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: RADAR DE VIAJES PENDIENTES & GESTIÓN -->
+        <div>
+          
+          <div class="luxury-card">
+            <div class="card-title-row">
+              <div class="card-title-block">
+                <div class="card-icon-badge" style="color:var(--emerald-primary);">
+                  <i data-lucide="radio"></i>
+                </div>
+                <div>
+                  <h3>Radar de Solicitudes en <span id="driverCityRadar">Lima</span></h3>
+                  <div class="card-subtext">Viajes en vivo esperando aceptación de chofer</div>
+                </div>
+              </div>
+              <button class="chip-btn" id="btnRefreshDriverRadar">
+                <i data-lucide="refresh-cw" style="width:11px; height:11px; display:inline; vertical-align:middle;"></i> Sondear Radar
+              </button>
+            </div>
+
+            <!-- LISTA RADAR -->
+            <div id="radarTripsContainer">
+              <!-- Solicitudes -->
+            </div>
+
+            <!-- VIAJE EN GESTIÓN ASIGNADO -->
+            <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--border-hairline);">
+              <h4 style="font-size:0.85rem; font-weight:700; color:var(--text-white); margin-bottom:10px;">Gestión de Servicio Asignado</h4>
+              <div class="radar-item-row" style="border-color:var(--border-gold);" id="driverCurrentActiveBox">
+                <div>
+                  <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                    <span class="badge-state badge-aceptado" id="driverActiveTripState">Aceptado</span>
+                    <strong style="color:var(--text-white); font-size:0.85rem;" id="driverActiveTripPassenger">Luciana Vargas</strong>
+                  </div>
+                  <p style="font-size:0.75rem; color:var(--text-secondary);" id="driverActiveTripRoute">Miraflores ➔ San Isidro (8.5 km)</p>
+                  <small style="color:var(--gold-300); font-family:var(--font-mono); font-weight:700;" id="driverActiveTripFare">Tarifa: S/ 29.90</small>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <button class="btn-status-action start" id="btnDriverStartRide">Iniciar Viaje 🏁</button>
+                  <button class="btn-status-action finish" id="btnDriverFinishRide">Finalizar y Cobrar 💳</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         VISTA 3: EMPRESA (KPIS CORPORATIVOS, FLOTAS, EXPORTACIÓN)
+         ====================================================================== -->
+    <section class="view-panel" id="view-corporate">
+      
+      <!-- HEADER CON SELECTOR DE EMPRESA -->
+      <div class="card-title-row" style="margin-bottom:16px;">
+        <div>
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-white);">Panel Ejecutivo Corporativo & Flotas</h2>
+          <p style="color:var(--text-tertiary); font-size:0.78rem;">Gestión centralizada de cuentas corporativas B2B y traslados de personal</p>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <select class="text-input" id="corporateCompanySelect" style="padding-left:12px; min-width:250px;">
+            <option value="3">🏢 Banco de Crédito del Perú BCP (Lima - PEN)</option>
+            <option value="4">🏢 Bancolombia S.A. Corporativo (Medellín - COP)</option>
+          </select>
+          <button class="btn-gold-action" id="btnExportCorporateCsv" style="padding:9px 14px; font-size:0.78rem; width:auto;">
+            <i data-lucide="download" style="width:14px; height:14px;"></i> Exportar CSV
+          </button>
+        </div>
+      </div>
+
+      <!-- GRID DE 4 KPIS FINANCIEROS -->
+      <div class="corporate-kpi-quad">
+        <div class="kpi-tile">
+          <div class="kpi-tile-label">Gasto Total Periodo</div>
+          <div class="kpi-tile-val" id="kpiTotalSpend">S/ 38,420.00</div>
+          <div class="kpi-tile-sub">
+            <i data-lucide="trending-up" style="width:12px; height:12px; display:inline; vertical-align:middle;"></i> +8.4% vs mes anterior
+          </div>
+        </div>
+        <div class="kpi-tile">
+          <div class="kpi-tile-label">Traslados Realizados</div>
+          <div class="kpi-tile-val" id="kpiTotalTrips">148</div>
+          <div class="kpi-tile-sub">
+            <i data-lucide="check-circle" style="width:12px; height:12px; display:inline; vertical-align:middle;"></i> 99.2% efectividad
+          </div>
+        </div>
+        <div class="kpi-tile">
+          <div class="kpi-tile-label">Ahorro Corporativo Negociado</div>
+          <div class="kpi-tile-val" style="color:var(--gold-300);" id="kpiTotalSavings">S/ 4,610.40</div>
+          <div class="kpi-tile-sub">Tarifa preferencial (12%)</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="kpi-tile-label">Colaboradores con Cupo</div>
+          <div class="kpi-tile-val" style="color:var(--emerald-300);" id="kpiActiveEmployees">42</div>
+          <div class="kpi-tile-sub">Límites activos asignados</div>
+        </div>
+      </div>
+
+      <!-- TABLA DE CONSUMO DETALLADO POR EMPLEADO -->
+      <div class="luxury-card">
+        <div class="card-title-row">
+          <div class="card-title-block">
+            <div class="card-icon-badge">
+              <i data-lucide="file-spreadsheet"></i>
+            </div>
+            <div>
+              <h3>Auditoría de Desplazamientos Corporativos</h3>
+              <div class="card-subtext">Trazabilidad detallada por colaborador y centro de costo</div>
+            </div>
+          </div>
+          <input type="text" class="text-input" id="searchCorporateTable" placeholder="Filtrar por empleado, cargo o ruta..." style="max-width:260px; padding-left:12px;">
+        </div>
+
+        <div class="table-scroll-container">
+          <table class="luxury-table" id="corporateTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Colaborador</th>
+                <th>Cargo / Área</th>
+                <th>Trayecto</th>
+                <th>Servicio</th>
+                <th>Conductor / Placa</th>
+                <th>Monto</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="corporateTripsTbody">
+              <!-- Llenado dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================================
+         VISTA 4: BUSINESS INTELLIGENCE & SQL INSPECTOR (JURADO COIL)
+         ====================================================================== -->
+    <section class="view-panel" id="view-analytics">
+      
+      <div class="card-title-row" style="margin-bottom:16px;">
+        <div>
+          <div class="hero-tag" style="color:var(--emerald-primary);">
+            <i data-lucide="terminal" style="width:13px; height:13px;"></i> Auditoría Oficial COIL 2026
+          </div>
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-white);">SQL Analytics & Supabase Inspector</h2>
+          <p style="color:var(--text-tertiary); font-size:0.78rem;">
+            Ejecuta en vivo sobre Supabase PostgreSQL las <strong>8 consultas de negocio de <code>03_consultas.sql</code></strong>.
+          </p>
+        </div>
+        <div>
+          <button class="btn-status-action accept" id="btnExecuteSelectedBiQuery" style="padding:9px 16px; font-size:0.8rem;">
+            <i data-lucide="play" style="width:13px; height:13px; display:inline; vertical-align:middle;"></i> Ejecutar Consulta en Vivo
+          </button>
+        </div>
+      </div>
+
+      <!-- TABS DE LAS 8 CONSULTAS -->
+      <div class="bi-queries-selector-grid" id="biQueriesTabsGrid">
+        <!-- Generado dinámicamente -->
+      </div>
+
+      <!-- VISOR DE CÓDIGO SQL Y RESULTADOS -->
+      <div class="luxury-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+          <div>
+            <h3 style="font-size:0.95rem; font-weight:800; color:var(--text-white);" id="biQueryActiveTitle">
+              Consulta 1: Viajes finalizados por conductor en el último mes
+            </h3>
+            <p style="font-size:0.74rem; color:var(--text-tertiary); margin-top:2px;" id="biQueryActiveDesc">
+              Objetivo: Evaluar la productividad y liquidación de choferes.
+            </p>
+          </div>
+          <button class="chip-btn" id="btnCopySql">
+            <i data-lucide="copy" style="width:11px; height:11px; display:inline; vertical-align:middle;"></i> Copiar SQL
+          </button>
+        </div>
+
+        <div class="sql-editor-container">
+          <div class="sql-editor-bar">
+            <span style="font-family:var(--font-mono); font-size:0.65rem; color:var(--gold-300);">PostgreSQL / Supabase Query</span>
+            <span style="font-family:var(--font-mono); font-size:0.68rem; color:var(--text-tertiary);" id="biExecutionStats">Latencia: -- ms • 0 filas</span>
+          </div>
+          <pre class="sql-pre-code" id="biSqlCodeBlock">SELECT ...</pre>
+        </div>
+
+        <!-- TABLA DE RESULTADOS DINÁMICOS -->
+        <div class="table-scroll-container" style="max-height:380px;">
+          <table class="luxury-table" id="biResultsTable">
+            <thead id="biResultsThead">
+              <tr><th>Haz clic en "Ejecutar Consulta en Vivo" para inspeccionar los datos...</th></tr>
+            </thead>
+            <tbody id="biResultsTbody">
+              <tr><td style="color:var(--text-tertiary); text-align:center; padding:24px;">Esperando ejecución...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ======================================================================
+       MODAL: ACCESO DEMO
+       ====================================================================== -->
+  <div class="modal-backdrop" id="demoModal">
+    <div class="modal-dialog-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-size:1.05rem; font-weight:800; color:var(--gold-300);">⚡ Acceso Demo</h3>
+        <button id="closeDemoModalBtn" style="background:none; border:none; color:var(--text-tertiary); cursor:pointer;">
+          <i data-lucide="x" style="width:18px; height:18px;"></i>
+        </button>
+      </div>
+      <p style="font-size:0.75rem; color:var(--text-tertiary); margin-bottom:14px;">
+        Selecciona un perfil preconfigurado para simular instantáneamente la experiencia en Lima o Medellín:
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        
+        <div class="service-card-item demo-persona-btn" data-persona="pasajero-lima">
+          <div class="service-left">
+            <div class="service-icon-frame">🇵🇪</div>
+            <div>
+              <div class="service-name">Luciana Vargas (Pasajera Lima)</div>
+              <div class="service-meta">Miraflores, DNI 72349012, Pagos Soles (PEN)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-card-item demo-persona-btn" data-persona="pasajero-medellin">
+          <div class="service-left">
+            <div class="service-icon-frame">🇨🇴</div>
+            <div>
+              <div class="service-name">Juliana Gómez (Pasajera Medellín)</div>
+              <div class="service-meta">El Poblado, CC 1018456789, Cuenta Bancolombia (COP)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-card-item demo-persona-btn" data-persona="conductor-lima">
+          <div class="service-left">
+            <div class="service-icon-frame">🚘</div>
+            <div>
+              <div class="service-name">Carlos Mendoza (Conductor Lima)</div>
+              <div class="service-meta">Toyota Corolla Hybrid (BAP-842), Licencia A-IIb vigente</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-card-item demo-persona-btn" data-persona="conductor-medellin">
+          <div class="service-left">
+            <div class="service-icon-frame">🚘</div>
+            <div>
+              <div class="service-name">William Castañeda (Conductor Medellín)</div>
+              <div class="service-meta">BMW Serie 3 (KMS-811), SOAT vence en 25d (Alerta)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-card-item demo-persona-btn" data-persona="empresa-bcp">
+          <div class="service-left">
+            <div class="service-icon-frame">🏢</div>
+            <div>
+              <div class="service-name">Banco de Crédito BCP (Corporativo)</div>
+              <div class="service-meta">Lima, RUC 20100047218, Facturación mensual PEN</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-card-item demo-persona-btn" data-persona="empresa-bancolombia">
+          <div class="service-left">
+            <div class="service-icon-frame">🏢</div>
+            <div>
+              <div class="service-name">Bancolombia S.A. (Corporativo)</div>
+              <div class="service-meta">Medellín, NIT 890903938-8, Facturación mensual COP</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL: CALIFICAR VIAJE
+       ====================================================================== -->
+  <div class="modal-backdrop" id="rateModal">
+    <div class="modal-dialog-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-size:1.05rem; font-weight:800; color:var(--gold-300);">Calificar Servicio de Traslado</h3>
+        <button id="closeRateModalBtn" style="background:none; border:none; color:var(--text-tertiary); cursor:pointer;">
+          <i data-lucide="x" style="width:18px; height:18px;"></i>
+        </button>
+      </div>
+      
+      <p style="font-size:0.75rem; color:var(--text-tertiary); margin-bottom:14px;" id="rateModalRideInfo">
+        Viaje #12 • Lima (San Isidro)
+      </p>
+
+      <div style="display:flex; justify-content:center; gap:10px; margin-bottom:16px;" id="starRatingGroup">
+        <span class="star-rating-item" data-val="1" style="font-size:1.8rem; cursor:pointer;">⭐</span>
+        <span class="star-rating-item" data-val="2" style="font-size:1.8rem; cursor:pointer;">⭐</span>
+        <span class="star-rating-item" data-val="3" style="font-size:1.8rem; cursor:pointer;">⭐</span>
+        <span class="star-rating-item" data-val="4" style="font-size:1.8rem; cursor:pointer;">⭐</span>
+        <span class="star-rating-item" data-val="5" style="font-size:1.8rem; cursor:pointer;">⭐</span>
+      </div>
+
+      <div class="field-group" style="margin-bottom:14px;">
+        <label class="field-label">Comentarios o Feedback</label>
+        <textarea class="text-input" id="rateCommentInput" rows="3" placeholder="Puntualidad, trato del chofer y confort del auto..." style="padding-left:12px;"></textarea>
+      </div>
+
+      <button type="button" class="btn-gold-action" id="btnSubmitRating">
+        Enviar Calificación
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR DE TOASTS -->
+  <div class="toast-shelf" id="toastContainer"></div>
+
+  <!-- JAVASCRIPT MODULAR ES6+ -->
+  <script src="js/api.js"></script>
+  <script src="js/views/passenger.js"></script>
+  <script src="js/views/driver.js"></script>
+  <script src="js/views/corporate.js"></script>
+  <script src="js/views/analytics.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
